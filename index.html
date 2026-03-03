@@ -7,17 +7,21 @@
     <title>Chair Occupancy Calculator</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #2E3B4E;
-            --card-bg: #3F4C62;
-            --input-bg: #2F3A4B;
-            --gold: #D4AF37;
-            --text-muted: #A0B0C0;
-            --text-light: #E0E0E0;
-            --text-dark: #2E3B4E;
-            --shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+            --primary-color: #d1b06f;
+            --primary-light: #eedc9a;
+            --bg-color: #1c2e3a;
+            --card-bg: #243d4d;
+            --text-main: #e8eef2;
+            --text-muted: #94a3b8;
+            --border-color: #3d5a6c;
+            --input-bg: #1e3644;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.2);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.25), 0 2px 4px -2px rgb(0 0 0 / 0.2);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.3), 0 4px 6px -4px rgb(0 0 0 / 0.25);
+            --font-family: 'Inter', sans-serif;
         }
 
         * {
@@ -27,169 +31,174 @@
         }
 
         body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: var(--bg);
-            color: var(--text-light);
+            font-family: var(--font-family);
+            background-color: var(--bg-color);
+            color: var(--text-main);
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            padding: 24px;
+            padding: 20px;
+        }
+
+        #app {
+            width: 100%;
+            max-width: 600px;
         }
 
         .calculator-container {
             background-color: var(--card-bg);
-            padding: 40px 40px 0;
-            border-radius: 20px;
-            box-shadow: var(--shadow);
-            width: 100%;
-            max-width: 500px;
+            border-radius: 16px;
+            box-shadow: var(--shadow-lg);
+            padding: 32px;
             overflow: hidden;
         }
 
-        .header {
+        header {
             text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .logo-badge {
-            width: 56px;
-            height: 56px;
-            border-radius: 14px;
-            background-color: var(--input-bg);
-            color: var(--gold);
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1.75rem;
-            font-weight: 700;
-            margin-bottom: 16px;
-        }
-
-        h1 {
-            font-family: 'Montserrat', sans-serif;
-            color: var(--gold);
-            font-size: 1.75rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
-        .subtitle {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            font-weight: 400;
-        }
-
-        .inputs-section {
-            position: relative;
-            padding-left: 56px;
-        }
-
-        /* Gold vertical timeline */
-        .inputs-section::before {
-            content: '';
-            position: absolute;
-            left: 23px;
-            top: 28px;
-            bottom: 28px;
-            width: 2px;
-            background-color: var(--gold);
-            z-index: 0;
-        }
-
-        .input-group {
-            margin-bottom: 28px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .input-group:last-of-type {
             margin-bottom: 32px;
         }
 
-        .label-row {
+        .header-logo {
+            display: block;
+            margin: 0 auto 16px;
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+        }
+
+        header h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 4px;
+        }
+
+        header p {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .calculator-body {
+            display: flex;
+            gap: 24px;
+        }
+
+        .acronym-column {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 8px;
+        }
+
+        .letter-row {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+        }
+
+        .letter {
+            font-size: 24px;
+            font-weight: 800;
+            color: #1c2e3a;
+            width: 40px;
+            height: 40px;
             display: flex;
             align-items: center;
+            justify-content: center;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            border: 2px solid var(--primary-light);
+            margin-bottom: 8px;
+            z-index: 1;
+        }
+
+        .connector {
+            width: 2px;
+            flex-grow: 1;
+            background-color: var(--border-color);
+            min-height: 20px;
             margin-bottom: 8px;
         }
 
-        .icon-circle {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background-color: var(--gold);
-            color: var(--text-dark);
+        .inputs-column {
+            flex: 1;
             display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-left: -56px;
-            margin-right: 16px;
-            flex-shrink: 0;
+            flex-direction: column;
+            gap: 16px;
         }
 
-        label {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            font-weight: 400;
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
         }
 
-        input {
-            width: 100%;
-            padding: 14px 16px;
-            background-color: var(--input-bg);
-            border: none;
-            border-radius: 8px;
-            color: var(--text-light);
-            font-size: 1rem;
-            font-family: 'Montserrat', sans-serif;
-            transition: box-shadow 0.2s ease;
-        }
-
-        input::placeholder {
-            color: var(--text-muted);
-            opacity: 0.8;
-        }
-
-        input:focus {
-            outline: none;
-            box-shadow: 0 0 0 1px var(--gold);
+        .input-group label {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-main);
         }
 
         .input-wrapper {
             position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-wrapper input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-family: var(--font-family);
+            font-size: 16px;
+            background-color: var(--input-bg);
+            color: var(--text-main);
+            transition: border-color 0.2s, box-shadow 0.2s;
+            outline: none;
+        }
+
+        .input-wrapper input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .input-wrapper input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(209, 176, 111, 0.25);
         }
 
         .capacity-display {
-            font-size: 0.8rem;
+            font-size: 12px;
             color: var(--text-muted);
-            margin-top: 6px;
+            margin-top: 2px;
         }
 
-        .result-box {
-            margin: 0 -40px;
-            padding: 24px 40px 32px;
-            background-color: var(--card-bg);
-            border: 2px solid var(--gold);
-            border-bottom: none;
-            border-radius: 0 0 20px 20px;
-            margin-top: 8px;
+        .result-section {
+            margin-top: 32px;
+            background: linear-gradient(135deg, #1e3644 0%, #243d4d 100%);
+            color: var(--primary-light);
+            padding: 24px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: var(--shadow-md);
+            border: 1px solid rgba(209, 176, 111, 0.4);
         }
 
-        .result-label {
-            color: var(--text-muted);
-            font-size: 0.75rem;
-            font-weight: 600;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
+        .result-section h2 {
+            font-size: 16px;
+            font-weight: 500;
+            opacity: 0.95;
             margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
 
         .result-value {
-            color: var(--gold);
-            font-size: 2.25rem;
+            font-size: 36px;
             font-weight: 700;
+            color: var(--primary-light);
         }
 
         input::-webkit-outer-spin-button,
@@ -201,93 +210,108 @@
         input[type=number] {
             -moz-appearance: textfield;
         }
+
+        @media (max-width: 480px) {
+            .calculator-body {
+                gap: 16px;
+            }
+
+            .letter {
+                width: 32px;
+                height: 32px;
+                font-size: 18px;
+            }
+
+            .calculator-container {
+                padding: 20px;
+            }
+        }
     </style>
 </head>
 
 <body>
+    <div id="app">
+        <div class="calculator-container">
+            <header>
+                <img src="logo.png" alt="Logo" class="header-logo" width="80" height="80">
+                <h1>Occupancy Calculator</h1>
+                <p>For Dental Practices</p>
+            </header>
 
-    <div class="calculator-container">
-        <div class="header">
-            <div class="logo-badge">C</div>
-            <h1>Occupancy Calculator</h1>
-            <div class="subtitle">For Dental Practices</div>
-        </div>
+            <div class="calculator-body">
+                <div class="acronym-column">
+                    <div class="letter-row">
+                        <div class="letter">S</div>
+                        <div class="connector"></div>
+                    </div>
+                    <div class="letter-row">
+                        <div class="letter">H</div>
+                        <div class="connector"></div>
+                    </div>
+                    <div class="letter-row">
+                        <div class="letter">D</div>
+                        <div class="connector"></div>
+                    </div>
+                    <div class="letter-row">
+                        <div class="letter">U</div>
+                    </div>
+                </div>
 
-        <div class="inputs-section">
-        <!-- Number of Surgeries -->
-        <div class="input-group">
-            <div class="label-row">
-                <div class="icon-circle">S</div>
-                <label>Number of Surgeries</label>
-            </div>
-            <div class="input-wrapper">
-                <input type="number" id="surgeries" placeholder="e.g. 3" min="1" oninput="calculate()">
-            </div>
-        </div>
+                <div class="inputs-column">
+                    <div class="input-group">
+                        <label for="surgeries">Number of Surgeries</label>
+                        <div class="input-wrapper">
+                            <input type="number" id="surgeries" placeholder="e.g. 3" min="1" oninput="calculate()">
+                        </div>
+                    </div>
 
-        <!-- Daily Hours -->
-        <div class="input-group">
-            <div class="label-row">
-                <div class="icon-circle">H</div>
-                <label>Avg. Daily Opening Hours</label>
-            </div>
-            <div class="input-wrapper">
-                <input type="number" id="hours" placeholder="e.g. 8" min="1" oninput="calculate()">
-            </div>
-        </div>
+                    <div class="input-group">
+                        <label for="hours">Avg. Daily Opening Hours</label>
+                        <div class="input-wrapper">
+                            <input type="number" id="hours" placeholder="e.g. 8" min="1" oninput="calculate()">
+                        </div>
+                    </div>
 
-        <!-- Days Per Week -->
-        <div class="input-group">
-            <div class="label-row">
-                <div class="icon-circle">D</div>
-                <label>Days Open Per Week</label>
-            </div>
-            <div class="input-wrapper">
-                <input type="number" id="days" placeholder="e.g. 5" min="1" max="7" oninput="calculate()">
-            </div>
-            <div class="capacity-display" id="capacity-display">Weekly Capacity: 0 hours</div>
-        </div>
+                    <div class="input-group">
+                        <label for="days">Days Open Per Week</label>
+                        <div class="input-wrapper">
+                            <input type="number" id="days" placeholder="e.g. 5" min="1" max="7" oninput="calculate()">
+                        </div>
+                        <div class="capacity-display" id="capacity-display">Weekly Capacity: 0 hours</div>
+                    </div>
 
-        <!-- Clinical Hours Used -->
-        <div class="input-group">
-            <div class="label-row">
-                <div class="icon-circle">U</div>
-                <label>Average Weekly Clinical Hours</label>
+                    <div class="input-group">
+                        <label for="used">Average Weekly Clinical Hours</label>
+                        <div class="input-wrapper">
+                            <input type="number" id="used" placeholder="e.g. 120" min="0" oninput="calculate()">
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="input-wrapper">
-                <input type="number" id="used" placeholder="e.g. 120" min="0" oninput="calculate()">
+
+            <div class="result-section">
+                <h2>Chair Occupancy Rate</h2>
+                <div class="result-value" id="result">0.00%</div>
             </div>
-        </div>
-
-        </div>
-
-        <div class="result-box">
-            <div class="result-label">Chair Occupancy Rate</div>
-            <div class="result-value" id="result">0.00%</div>
         </div>
     </div>
 
     <script>
         function calculate() {
-            // Get values
             const surgeries = parseFloat(document.getElementById('surgeries').value) || 0;
             const hours = parseFloat(document.getElementById('hours').value) || 0;
             const days = parseFloat(document.getElementById('days').value) || 0;
             const used = parseFloat(document.getElementById('used').value) || 0;
 
-            // Calculate Weekly Capacity
             const weeklyCapacity = surgeries * hours * days;
 
-            // Update Capacity Display
             document.getElementById('capacity-display').innerText = `Weekly Capacity: ${weeklyCapacity.toLocaleString()} hours`;
 
-            // Calculate Percentage
             let percentage = 0;
             if (weeklyCapacity > 0) {
                 percentage = (used / weeklyCapacity) * 100;
             }
 
-            // Update Result
             document.getElementById('result').innerText = percentage.toFixed(2) + '%';
         }
     </script>
